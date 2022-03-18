@@ -12,12 +12,16 @@ db = mongodb_client.db
 
 @app.route("/add_one")
 def add_one():
-    db.todos.insert_one({'title': "todo title", 'body': "suck my cock"})
-    return flask.jsonify(message="success")
+    title = input("Intput title: ")
+    body = input("Input body: ")
+    db_object = {'title': title, 'body': body}
+    db.csgo.insert_one({'_id': 1, 'title': title, 'body': body})
+    return flask.jsonify(message=db_object)
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!asdasd</p>"
+def home():
+    csgo = db.csgo.find()
+    return flask.jsonify([todo for todo in csgo])
 
 @app.route("/add_many")
 def add_many():
