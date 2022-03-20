@@ -9,7 +9,6 @@ app.config["MONGO_URI"] = "mongodb+srv://johanity:kevinvle@cluster0.mzkq5.mongod
 mongodb_client = PyMongo(app)
 db = mongodb_client.db
 
-players = db.csgo.find()
 
 @app.route("/add_one")
 def add_one():
@@ -20,6 +19,8 @@ def add_one():
 
 @app.route("/")
 def home():
+    players = db.csgo.find()
+
     return render_template('index.html', players = players)
 
 @app.route("/add_many")
