@@ -81,7 +81,7 @@ def update():
 
     #success message and redirect to home
     print('Player Card Successfully Updated')
-    return (redirect(url_for("home")),)
+    return redirect(url_for("home"))
 
 #@app.route("/update_many")
 #def update_many():   
