@@ -42,12 +42,11 @@ def add_many():
 def update(): 
 
     #verify if change operation is accurate
-    verification = ('Are you sure you want to change a player card? (Yes/No)')
+    verification = input('Are you sure you want to change a player card? (Yes/No)')
 
     #if operation is not accurate
     if verification == 'No':
         return redirect(url_for("home"))
-        return flask.jsonify(message ='Card Change Cancelled')
 
 
     #if operation is accurate
@@ -68,24 +67,32 @@ def update():
 
         #Selection Input
         whatChange = input()
-
+        filter = { "name" : name}
         if whatChange == 'p':
             new_name = input('Enter updated player name: ')
-            db.csgo.update_one( filter = { "name" : name}, replacement = { "name" : new_name}, upsert = True )
+            db.csgo.update_one(filter, { "$set": { 'name': new_name } }, upsert = True )
 
         if whatChange == 't':
             new_team= input('Enter updated team name: ')
-            db.csgo.update_one( filter = { "name" : name}, replacement = { "team" : new_team}, upsert = True )
+            db.csgo.update_one(filter, { "$set": { 'team': new_team } }, upsert = True )
 
         if whatChange == 'b':
             new_name = input('Enter updated player name: ')
             new_team= input('Enter updated team name: ')
-            db.csgo.update_one( filter = { "name" : name}, replacement = { "name" : new_name}, upsert = True )
-            db.csgo.update_one( filter = { "name" : name}, replacement = { "team" : new_team}, upsert = True )
+            db.csgo.update_one(filter, { "$set": { 'team': new_team } }, upsert = True )
+            db.csgo.update_one(filter, { "$set": { 'name': new_name } }, upsert = True )
 
     #success message and redirect to home
     print('Player Card Successfully Updated')
     return redirect(url_for("home"))
+
+@app.route("/<string:team>")
+def display_team(team):
+    specificPlayers = [player["name"] for player in db.csgo.find({"team": team})]
+    if specificPlayers:
+        return jsonify(message = specificPlayers)
+    else:
+        return jsonify(message = "Not Found")
 
 #@app.route("/update_many")
 #def update_many():   
