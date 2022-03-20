@@ -13,16 +13,14 @@ players = db.csgo.find()
 
 @app.route("/add_one")
 def add_one():
-    name = input("Intput name: ")
+    name = input("Input name: ")
     team = input("Input team: ")
     db.csgo.insert_one({'name': name, 'team': team})
     return redirect(url_for("home"))
 
 @app.route("/")
 def home():
-    players = db.csgo.find()
     return render_template('index.html', players = players)
-
 
 @app.route("/add_many")
 def add_many():
