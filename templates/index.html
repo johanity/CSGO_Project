@@ -1,0 +1,12 @@
+<form>
+<button = "btn btn-default" formaction ="{{url_for('add_one')}}">About</button>
+</form>
+
+<table>
+    {%for i in players%}
+        <tr>
+            <td>Name: {{i.name}}</td>
+            <td>Team: {{i.team}}</td>
+        </tr>
+    {%endfor%} 
+</table>
