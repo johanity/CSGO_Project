@@ -40,6 +40,7 @@ def update():
     #verify if change operation is accurate
     verification = ('Are you sure you want to change a player card? (Yes/No)')
 
+    #if operation is not accurate
     if verification == 'No':
         return redirect(url_for("home"))
         return flask.jsonify(message ='Card Change Cancelled')
@@ -78,7 +79,9 @@ def update():
             db.csgo.update_one( filter = { "name" : name}, replacement = { "name" : new_name}, upsert = True )
             db.csgo.update_one( filter = { "name" : name}, replacement = { "team" : new_team}, upsert = True )
 
-    return (redirect(url_for("home")),flask.jsonify(message ='Player Card Successfully Updated.'))
+    #success message and redirect to home
+    print('Player Card Successfully Updated')
+    return (redirect(url_for("home")),)
 
 #@app.route("/update_many")
 #def update_many():   
