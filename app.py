@@ -26,12 +26,18 @@ def home():
 
 @app.route("/add_many")
 def add_many():
-    db.todos.insert_many([
-        {'_id': 1, 'title': "todo title one ", 'body': "todo body one "},
-        {'_id': 2, 'title': "todo title two", 'body': "todo body two"},
-        {'_id': 3, 'title': "todo title three", 'body': "todo body three"},
-        {'_id': 4, 'title': "todo title four", 'body': "todo body four"},
-        {'_id': 5, 'title': "todo title five", 'body': "todo body five"},
-        {'_id': 1, 'title': "todo title six", 'body': "todo body six"},
-        ])
-    return Flask.jsonify(message="success")
+    many = []
+    numAdditions = int(input('How many player/team submissions would you like to make?: '))
+    for submission in range(numAdditions):
+        name = input("Intput name: ")
+        team = input("Input team: ")
+        many.append({'name': name, 'team': team})
+    db.csgo.insert_many(submission for submission in many)
+    return redirect(url_for("home"))
+     
+
+
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run()
