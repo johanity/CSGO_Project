@@ -6,6 +6,10 @@
     <button = "btn btn-default" formaction ="{{url_for('add_many')}}">Add many</button>
 </form>
 
+<form>
+    <button = "btn btn-default" formaction ="{{url_for('update_one')}}">Update a Player Card</button>
+</form>
+
 <table><center>
     {%for i in players%}
         <tr>
