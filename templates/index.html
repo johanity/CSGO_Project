@@ -11,8 +11,12 @@
         <tr>
             <td>Name: {{i.name}}</td>
             <td>Team: {{i.team}}</td>
+            {% if i.url != "" and i.url%}
+                <td><img src= {{i.url}} alt= {{i.name}} width="10%"
+                    height="10%"><td>
+            {% endif%}
         </tr>
     {%endfor%} 
-</table>
 </center>
+</table>
 
