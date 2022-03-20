@@ -13,14 +13,18 @@ db = mongodb_client.db
 @app.route("/add_one")
 def add_one():
     name = input("Input name: ")
-    team = input("Input team: ")
-    db.csgo.insert_one({'name': name, 'team': team})
+    if db.csgo.find_one({'name': name}):
+        print("already")
+    else:
+        team = input("Input team: ")
+        url = input("Url: ")
+        db.csgo.insert_one({'name': name, 'team': team, 'url': url})
+        
     return redirect(url_for("home"))
 
 @app.route("/")
 def home():
     players = db.csgo.find()
-
     return render_template('index.html', players = players)
 
 @app.route("/add_many")
